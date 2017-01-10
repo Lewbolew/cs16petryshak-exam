@@ -22,7 +22,10 @@ public class BasicStudent implements Jsonable {
 
     @Override
     public JsonObject toJsonObject() {
-        // ToDo
-        return null;
+        JsonPair studentName = new JsonPair("name", new JsonString(name));
+        JsonPair studentSurname = new JsonPair("surname", new JsonString(surname));
+        JsonPair studentYear = new JsonPair("year", new JsonNumber(year));
+
+        return new JsonObject(studentName, studentSurname, studentYear);
     }
 }

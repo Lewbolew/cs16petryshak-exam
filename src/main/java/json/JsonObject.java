@@ -1,6 +1,7 @@
 package json;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -36,7 +37,12 @@ public class JsonObject extends Json {
     }
 
     public void add(JsonPair jsonPair) {
-
+        for(JsonPair jsonPair1: jsonPairsSet) {
+            if (jsonPair1.key.equals(jsonPair.key)) {
+                jsonPairsSet.remove(jsonPair1);
+                break;
+            }
+        }
         jsonPairsSet.add(jsonPair);
     }
 
@@ -50,7 +56,28 @@ public class JsonObject extends Json {
     }
 
     public JsonObject projection(String... names) {
-        // ToDo
-        return null;
+        LinkedList<JsonPair> jsonPairs = new LinkedList<>();
+        for(int i = 0; i < names.length; i++) {
+            for(JsonPair jsonPair: jsonPairsSet) {
+                if(jsonPair.key == names[i]) {
+                    jsonPairs.add(jsonPair);
+                    break;
+                }
+            }
+        }
+        JsonPair[] arr = new JsonPair[jsonPairs.size()];
+        for(int j = 0; j < jsonPairs.size(); j++) {
+            arr[j] = jsonPairs.get(j);
+        }
+        return new JsonObject(arr);
+    }
+
+    public boolean contains(String name) {
+        for(JsonPair jsonPair: jsonPairsSet) {
+            if(jsonPair.key.equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
