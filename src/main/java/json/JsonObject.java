@@ -16,6 +16,9 @@ public class JsonObject extends Json {
         }
     }
 
+    public Set<JsonPair> getJsonPairsSet() {
+        return jsonPairsSet;
+    }
     @Override
     public String toJson() {
         if(jsonPairsSet.size() == 0) {
