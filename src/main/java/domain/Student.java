@@ -23,11 +23,13 @@ public class Student extends BasicStudent {
 
     @Override
     public JsonObject toJsonObject() {
-        JsonObject jsonObject =  super.toJsonObject();
         LinkedList<JsonPair> jsonPairs = new LinkedList<>();
-        for(JsonPair jsonPair: jsonObject.getJsonPairsSet()) {
-            jsonPairs.add(jsonPair);
-        }
+        JsonPair studentName = new JsonPair("name", new JsonString(name));
+        JsonPair studentSurname = new JsonPair("surname", new JsonString(surname));
+        JsonPair studentYear = new JsonPair("year", new JsonNumber(year));
+        jsonPairs.add(studentName);
+        jsonPairs.add(studentSurname);
+        jsonPairs.add(studentYear);
 
         ArrayList<JsonObject> jsonObjectsForJsonArray = new ArrayList<>();
         for(Tuple<String, Integer> element: exams) {
@@ -44,6 +46,7 @@ public class Student extends BasicStudent {
         }
         jsonPairs.add(new JsonPair("exams", new JsonArray(arr)));
         JsonPair[] result = new JsonPair[jsonPairs.size()];
+
         for(int j = 0; j < jsonPairs.size(); j++) {
             result[j] = jsonPairs.get(j);
         }
